@@ -1,0 +1,33 @@
+{
+    "name": "impack/framework",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "yimmr",
+            "email": "963399116@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3"
+    },
+    "replace": {
+        "impack/contracts": "self.version",
+        "impack/container": "self.version",
+        "impack/config": "self.version",
+        "impack/filesystem": "self.version",
+        "impack/support": "self.version",
+        "impack/pipeline": "self.version",
+        "impack/http": "self.version",
+        "impack/foundation": "self.version"
+    },
+    "require-dev": {
+        "symfony/var-dumper": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Impack\\": "src/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

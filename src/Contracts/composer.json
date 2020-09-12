@@ -1,0 +1,19 @@
+{
+    "name": "impack/contracts",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "yimmr",
+            "email": "963399116@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Impack\\Contracts\\": ""
+        }
+    },
+    "minimum-stability": "dev"
+}

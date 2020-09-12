@@ -1,0 +1,21 @@
+{
+    "name": "impack/config",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "yimmr",
+            "email": "963399116@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.3",
+        "impack/contracts": "*",
+        "impack/support": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Impack\\Config\\": ""
+        }
+    },
+    "minimum-stability": "dev"
+}
