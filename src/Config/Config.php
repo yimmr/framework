@@ -57,7 +57,9 @@ class Config implements ArrayAccess, Repository
      */
     public function set($key, $value = '', $sync = true)
     {
-        Arr::set($this->items($key), $key, $value);
+        $this->items($key);
+        Arr::set($this->items, $key, $value);
+
         if ($sync) {
             $this->syncToLoader($key, 'update');
         }
@@ -71,7 +73,8 @@ class Config implements ArrayAccess, Repository
      */
     public function forget($key)
     {
-        Arr::forget($this->items($key), $key);
+        $this->items($key);
+        Arr::forget($this->items, $key);
         $this->syncToLoader($key, 'delete');
     }
 
