@@ -42,7 +42,7 @@ interface Container
      * Register a binding with the container.
      *
      * @param  string  $id
-     * @param  string|null  $concrete
+     * @param  \Closure|string|null  $concrete
      * @param  bool  $shared
      * @return void
      */
@@ -52,7 +52,7 @@ interface Container
      * Register a binding if it hasn't already been registered.
      *
      * @param  string  $id
-     * @param  string|null  $concrete
+     * @param  \Closure|string|null  $concrete
      * @param  bool  $shared
      * @return void
      */
@@ -62,7 +62,7 @@ interface Container
      * Register a shared binding in the container.
      *
      * @param  string  $id
-     * @param  string|null  $concrete
+     * @param  \Closure|string|null  $concrete
      * @return void
      */
     public function singleton($id, $concrete = null);

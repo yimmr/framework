@@ -80,7 +80,7 @@ class Container implements ArrayAccess, ContainerContract
      * Register a binding with the container.
      *
      * @param  string  $id
-     * @param  string|null  $concrete
+     * @param  \Closure|string|null  $concrete
      * @param  bool  $shared
      * @return void
      */
@@ -98,7 +98,7 @@ class Container implements ArrayAccess, ContainerContract
      * Register a binding if it hasn't already been registered.
      *
      * @param  string  $id
-     * @param  string|null  $concrete
+     * @param  \Closure|string|null  $concrete
      * @param  bool  $shared
      * @return void
      */
@@ -113,7 +113,7 @@ class Container implements ArrayAccess, ContainerContract
      * Register a shared binding in the container.
      *
      * @param  string  $id
-     * @param  string|null  $concrete
+     * @param  \Closure|string|null  $concrete
      * @return void
      */
     public function singleton($id, $concrete = null)
@@ -191,6 +191,10 @@ class Container implements ArrayAccess, ContainerContract
      */
     public function build($concrete, $params = [])
     {
+        if ($concrete instanceof Closure) {
+            return $concrete(...$params);
+        }
+
         try {
             $reflector = new ReflectionClass($concrete);
         } catch (ReflectionException $e) {

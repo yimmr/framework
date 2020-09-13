@@ -88,13 +88,22 @@ class Application extends Container implements ApplicationContract
         static::setInstance($this);
         $this->instance('app', $this);
         $this->instance(Container::class, $this);
+        $this->singleton('config', \Impack\Config\Config::class);
     }
 
     /** 设置核心别名 */
     protected function registerCoreAliases()
     {
-        $this->alias(Container::class, 'app');
-        $this->alias(\Impack\Config\Config::class, 'config');
-        $this->alias(\Impack\Http\Request::class, 'request');
+
+        foreach ([
+            'app'        => [self::class, ApplicationContract::class, \Impack\Contracts\Container\Container::class],
+            'config'     => [\Impack\Config\Config::class, \Impack\Contracts\Config\Repository::class],
+            'filesystem' => [\Impack\Filesystem\Filesystem::class, \Impack\Contracts\Filesystem\Filesystem::class],
+            'request'    => [\Impack\Http\Request::class, \Symfony\Component\HttpFoundation\Request::class],
+        ] as $id => $aliases) {
+            foreach ($aliases as $alias) {
+                $this->alias($id, $alias);
+            }
+        }
     }
 }
