@@ -35,4 +35,11 @@ interface Application extends Container
      * @return string
      */
     public function assetPath($path = '');
+
+    /**
+     * 是否在调试模式下运行
+     *
+     * @return bool
+     */
+    public function isDebugging();
 }
