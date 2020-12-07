@@ -1,12 +1,7 @@
 {
     "name": "impack/framework",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "yimmr",
-            "email": "963399116@qq.com"
-        }
-    ],
+    "description": "",
     "require": {
         "php": ">=7.3"
     },
