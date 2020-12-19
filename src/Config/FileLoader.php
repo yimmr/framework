@@ -13,13 +13,26 @@ class FileLoader implements Loader
         $this->app = $app;
     }
 
+    /**
+     * 加载数据
+     *
+     * @param  array  $keyseg
+     * @param  array  $items
+     */
     public function load($keyseg, &$items)
     {
-        if (\file_exists($file = $this->path($keyseg[0]))) {
+        if (file_exists($file = $this->path($keyseg[0]))) {
             $items[$keyseg[0]] = require $file;
         }
     }
 
+    /**
+     * 更新保存数据
+     *
+     * @param  array  $keyseg
+     * @param  array  $items
+     * @return bool
+     */
     public function update($keyseg, &$items)
     {
         $filename = $keyseg[0];
@@ -28,9 +41,16 @@ class FileLoader implements Loader
         $data = is_array($data) ? var_export($data, true) : $data;
         $data = "<?php\r\nreturn {$data};";
 
-        return (bool) \file_put_contents($this->path($filename), $data);
+        return (bool) file_put_contents($this->path($filename), $data);
     }
 
+    /**
+     * 删除数据
+     *
+     * @param  array  $keyseg
+     * @param  array  $items
+     * @return bool
+     */
     public function delete($keyseg, &$items)
     {
         $filename = $keyseg[0];

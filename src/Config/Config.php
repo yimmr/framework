@@ -1,4 +1,5 @@
 <?php
+
 namespace Impack\Config;
 
 use ArrayAccess;
@@ -21,21 +22,21 @@ class Config implements ArrayAccess, Repository
     }
 
     /**
-     * 是否存在配置项。若自身缓存区没有则调用加载器的判断
+     * 是否存在配置项
      *
-     * @param string $key
+     * @param  string  $key
      * @return bool
      */
-    public function has($key): bool
+    public function has($key)
     {
-        return (bool) Arr::has($this->items($key), $key);
+        return Arr::has($this->items($key), $key);
     }
 
     /**
-     * 返回配置项的值
+     * 返回指定配置值
      *
-     * @param string|array $key
-     * @param mixed $default
+     * @param  string|array  $key
+     * @param  mixed  $default
      * @return mixed
      */
     public function get($key, $default = null)
@@ -48,12 +49,11 @@ class Config implements ArrayAccess, Repository
     }
 
     /**
-     * 设置配置项的值
+     * 设置配置项
      *
-     * @param string|array $key
-     * @param mixed $value
-     * @param bool $sync
-     * @return void
+     * @param  string|array  $key
+     * @param  mixed  $value
+     * @param  bool  $sync
      */
     public function set($key, $value = '', $sync = true)
     {
@@ -68,8 +68,7 @@ class Config implements ArrayAccess, Repository
     /**
      * 移除配置项
      *
-     * @param string $key
-     * @return void
+     * @param  string  $key
      */
     public function forget($key)
     {
@@ -100,44 +99,42 @@ class Config implements ArrayAccess, Repository
     }
 
     /**
-     * 配置项数组值的前面加值
+     * 指定配置值的前面添加值
      *
      * @param  string  $key
      * @param  mixed  $value
-     * @return void
      */
     public function prepend($key, $value)
     {
-        if (\is_array($array = $this->get($key))) {
+        if (is_array($array = $this->get($key))) {
             array_unshift($array, $value);
             $this->set($key, $array);
         }
     }
 
     /**
-     * 配置项数组值的后面追加值
+     * 指定配置值的后面添加值
      *
      * @param  string  $key
      * @param  mixed  $value
-     * @return void
      */
     public function push($key, $value)
     {
-        if (\is_array($array = $this->get($key))) {
+        if (is_array($array = $this->get($key))) {
             $array[] = $value;
             $this->set($key, $array);
         }
     }
 
     /**
-     * 返回缓存区配置项，传Key可添加配置项到缓存区
+     * 读取配置项到缓存区并返回当前缓存
      *
-     * @param string $key
+     * @param  string  $key
      * @return array
      */
     public function items($key = '')
     {
-        if (empty($key) || !\is_string($key) || Arr::has($this->items, $key)) {
+        if (empty($key) || !is_string($key) || Arr::has($this->items, $key)) {
             return $this->items;
         }
 
@@ -149,11 +146,10 @@ class Config implements ArrayAccess, Repository
     }
 
     /**
-     * 添加可加载配置项的实例，Name是操作配置的第一个键
+     * 设置指定配置项的加载器
      *
-     * @param string $name
-     * @param \Impack\Contracts\Config\Loader $loader
-     * @return void
+     * @param  string  $name
+     * @param  \Impack\Contracts\Config\Loader  $loader
      */
     public function loader($name, Loader $loader)
     {
@@ -161,9 +157,9 @@ class Config implements ArrayAccess, Repository
     }
 
     /**
-     * 返回可用加载器
+     * 获取配置项对应的加载器
      *
-     * @param string $name
+     * @param  string  $name
      * @return \Impack\Contracts\Config\Loader
      */
     protected function getLoader($name = 'file')
@@ -172,11 +168,10 @@ class Config implements ArrayAccess, Repository
     }
 
     /**
-     * 缓存区的操作与加载器同步
+     * 缓存区操作同步至加载器
      *
-     * @param string $key
-     * @param string $method
-     * @return void
+     * @param  string  $key
+     * @param  string  $method
      */
     protected function syncToLoader($key, $method = 'update')
     {
@@ -188,12 +183,12 @@ class Config implements ArrayAccess, Repository
     /**
      * 点分隔的字符拆成数组
      *
-     * @param string $key
+     * @param  string  $key
      * @return array
      */
     protected function keyseg(string $key)
     {
-        return $this->keysegs[$key] ?? $this->keysegs[$key] = \explode('.', $key);
+        return $this->keysegs[$key] ?? $this->keysegs[$key] = explode('.', $key);
     }
 
     public function offsetExists($offset)
