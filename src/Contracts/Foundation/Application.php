@@ -8,40 +8,23 @@ interface Application extends Container
     /**
      * 返回应用运行目录
      *
-     * @param  string  $path
      * @return string
      */
-    public function path($path = '');
+    public function path(string $path = '');
 
     /**
      * 返回配置文件目录
      *
-     * @param  string  $path
      * @return string
      */
-    public function configPath($path = '');
+    public function configPath(string $path = '');
 
     /**
      * 返回公共资源目录
      *
-     * @param  string  $path
      * @return string
      */
-    public function publicPath($path = '');
-
-    /**
-     * 是否已启动引导程序
-     *
-     * @return bool
-     */
-    public function hasBootstrapped();
-
-    /**
-     * 启动全局引导程序
-     *
-     * @param  array  $bootstrappers
-     */
-    public function bootstrap(array $bootstrappers);
+    public function publicPath(string $path = '');
 
     /**
      * 是否在调试模式下运行
