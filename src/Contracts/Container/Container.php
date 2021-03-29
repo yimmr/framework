@@ -8,11 +8,11 @@ interface Container
     /**
      * Resolve the given type from the container.
      *
-     * @param  string  $id
+     * @param  string  $abstract
      * @param  array  $parameters
      * @return mixed
      */
-    public function make($id, array $params = []);
+    public function make($abstract, array $params = []);
 
     /**
      * Determine if the given id type has been bound.
@@ -25,97 +25,83 @@ interface Container
     /**
      * Determine if the given id type has been resolved.
      *
-     * @param  string  $id
+     * @param  string  $abstract
      * @return bool
      */
-    public function resolved($id);
+    public function resolved($abstract);
 
     /**
      * Determine if a given type is shared.
      *
-     * @param  string  $id
+     * @param  string  $abstract
      * @return bool
      */
-    public function isShared($id);
+    public function isShared($abstract);
 
     /**
      * Register a binding with the container.
      *
-     * @param  string  $id
+     * @param  string  $abstract
      * @param  \Closure|string|null  $concrete
      * @param  bool  $shared
-     * @return void
      */
-    public function bind($id, $concrete = null, $shared = false);
+    public function bind($abstract, $concrete = null, $shared = false);
 
     /**
      * Register a binding if it hasn't already been registered.
      *
-     * @param  string  $id
+     * @param  string  $abstract
      * @param  \Closure|string|null  $concrete
      * @param  bool  $shared
-     * @return void
      */
-    public function bindIf($id, $concrete = null, $shared = false);
+    public function bindIf($abstract, $concrete = null, $shared = false);
 
     /**
      * Register a shared binding in the container.
      *
-     * @param  string  $id
+     * @param  string  $abstract
      * @param  \Closure|string|null  $concrete
-     * @return void
      */
-    public function singleton($id, $concrete = null);
+    public function singleton($abstract, $concrete = null);
 
     /**
      * Register an existing instance as shared in the container.
      *
-     * @param  string  $id
+     * @param  string  $abstract
      * @param  mixed  $instance
      * @return mixed
      */
-    public function instance($id, $instance);
-
-    /**
-     * Instantiate a concrete instance of the given type.
-     *
-     * @param  string  $concrete
-     * @param array $params
-     * @return mixed
-     */
-    public function build($concrete, $params = []);
-
-    /**
-     * Register a new resolving callback.
-     *
-     * @param  \Closure|string  $id
-     * @param  \Closure|null  $callback
-     * @return void
-     */
-    public function resolving($id, Closure $callback = null);
+    public function instance($abstract, $instance);
 
     /**
      * Call the given Closure / class@method and inject its dependencies.
      *
      * @param  callable|string  $callback
-     * @param  array|string|mixed  $parameters
+     * @param  array|string|mixed  $params
      * @return mixed
+     *
+     * @throws \InvalidArgumentException
      */
     public function call($callback, array $parameters = []);
+
+    /**
+     * Get a closure to resolve the given type from the container.
+     *
+     * @param  string  $abstract
+     * @return \Closure
+     */
+    public function factory($abstract);
 
     /**
      * Alias a type to a different name.
      *
      * @param  string  $abstract
      * @param  string  $alias
-     * @return void
      */
     public function alias($abstract, $alias);
 
     /**
      * Flush the container of all bindings and resolved instances.
-     *
-     * @return void
      */
     public function flush();
 }
